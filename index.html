@@ -59,8 +59,22 @@
             <a href="index.html" class="navbar-brand ms-4 ms-lg-0">
                 <h1 class="fw-bold text-primary m-0">Re<span class="text-secondary">ho-</span>tech</h1>
            </a>
-           
-
+           <center>
+           <div class="cart-icon" >
+  <i class="fa fa-shopping-cart"></i>
+  <span id="cart-count">0</span>
+  <!-- Cart details section -->
+  
+  <div id="cart-details" class="cart-details">
+    <ul id="cart-items"style="font-size: 12px; "></ul>
+  <div style="font-size: 12px; ">Total: ₵<span id="total-cost">0</span></div>
+    
+ <div style="text-align: center; margin-top: 10px;">
+  <button id="place-order-btn" class="btn btn-success" style="font-size: 12px; ">Place Order via WhatsApp</button>
+</div>
+  </div>
+</div>
+</center>
 <div id="restock-panel" style="display: none; border: 1px solid #ccc; padding: 15px; margin-top: 20px;">
   <h5>🔧 Admin Panel: Restock & Update Price</h5>
   <div>
@@ -79,26 +93,13 @@
   <div id="restock-message" class="text-success mt-2"></div>
 </div>
 <!-- Search Box with Icon -->
-<div class="input-group mb-4" style="max-width: 200px;">
+<div class="input-group mb-4" style="max-width: 140px;">
   <input type="text" id="search-box" class="form-control" placeholder="Search products...">
   <span class="input-group-text"><i class="fas fa-search"></i></span>
 </div>
 
  
- <div class="cart-icon" >
-  <i class="fa fa-shopping-cart"></i>
-  <span id="cart-count">0</span>
-  <!-- Cart details section -->
-  
-  <div id="cart-details" class="cart-details">
-    <ul id="cart-items"></ul>
-  <div>Total: ₵<span id="total-cost">0</span></div>
-    
- <div style="text-align: center; margin-top: 15px;">
-  <button id="place-order-btn" class="btn btn-success">Place Order via WhatsApp</button>
-</div>
-  </div>
-</div>
+ 
             <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
