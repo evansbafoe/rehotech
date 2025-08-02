@@ -396,3 +396,65 @@
 .footer .copyright a:hover {
     color: var(--primary);
 }
+/* Fixed bottom bar styling */
+  .bottom-bar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    align-items: center;
+    padding: 10px;
+    box-shadow: 0 -2px 6px rgba(0,0,0,0.1);
+    z-index: 9999;
+  }
+
+  /* Cart Icon styling */
+  .cart-icon {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .cart-icon i {
+    font-size: 24px;
+  }
+
+  #cart-count {
+    background: red;
+    color: white;
+    font-size: 10px;
+    border-radius: 50%;
+    padding: 2px 6px;
+    position: absolute;
+    top: -5px;
+    right: -10px;
+  }
+
+  /* Cart Details Popup */
+  .cart-details {
+    display: none;
+    position: absolute;
+    bottom: 35px;
+    right: -30px;
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 220px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    z-index: 10000;
+  }
+
+  .cart-icon:hover .cart-details {
+    display: block;
+  }
+
+  /* Search input popup */
+  #search-box-wrapper {
+    display: none;
+    position: absolute;
+    bottom: 35px;
+    left: -80px;
+    width: 200px;
+  }
