@@ -65,7 +65,7 @@ if (orderBtn) {
       return;
     }
 
-    let message = "🛒 *New Order from Website*\n\n";
+    let message = "🛒 *Reho-tech electronics*\n\n";
     cart.forEach(item => {
       message += `• ${item.name} x${item.quantity} - ₵${(item.price * item.quantity).toFixed(2)}\n`;
     });
@@ -79,27 +79,7 @@ if (orderBtn) {
 
     window.open(whatsappURL, "_blank"); // ✅ Open in new tab
 
-    // ✅ Optional: Reduce stock after sending
-    cart.forEach(item => {
-      document.querySelectorAll('.product-item').forEach(product => {
-        const name = product.querySelector('a.d-block.h5.mb-2').textContent.trim();
-        if (name === item.name.trim()) {
-          let stock = parseInt(product.getAttribute('data-stock')) || 0;
-          stock -= item.quantity;
-          if (stock < 0) stock = 0;
-
-          product.setAttribute('data-stock', stock);
-          product.querySelector('.stock-count').textContent = stock;
-
-          const button = product.querySelector('.add-to-cart');
-          if (button && stock === 0) {
-            button.disabled = true;
-            button.textContent = "Out of Stock";
-          }
-        }
-      });
-    });
-
+    
     cart = [];
     updateCartCount();
     updateCartDetails();
@@ -144,23 +124,7 @@ function removeFromCart(index) {
     const item = cart[index];
     item.quantity -= 1;
 
-    // Restock product
-    document.querySelectorAll('.product-item').forEach(product => {
-      const name = product.querySelector('a.d-block.h5.mb-2').textContent.trim();
-      if (name === item.name.trim()) {
-        let currentStock = parseInt(product.getAttribute('data-stock')) || 0;
-        currentStock++;
-        product.setAttribute('data-stock', currentStock);
-        product.querySelector('.stock-count').textContent = currentStock;
-
-        const button = product.querySelector('.add-to-cart');
-        if (button) {
-          button.disabled = false;
-          button.textContent = "Add to Cart";
-        }
-      }
-    });
-
+    
     // Remove product from cart if quantity is 0
     if (item.quantity <= 0) {
       cart.splice(index, 1);
@@ -193,29 +157,7 @@ function updateCartCount() {
   }
 }
 
-  function saveStockToLocalStorage() {
-    const stockData = {};
-    document.querySelectorAll('.product-item').forEach(item => {
-      const name = item.querySelector('a.d-block.h5.mb-2').textContent;
-      const stock = item.getAttribute('data-stock');
-      stockData[name] = stock;
-    });
-    localStorage.setItem('stock', JSON.stringify(stockData));
-  }
-
-  function loadStockFromLocalStorage() {
-    const savedStock = localStorage.getItem('stock');
-    if (savedStock) {
-      const stockData = JSON.parse(savedStock);
-      document.querySelectorAll('.product-item').forEach(item => {
-        const name = item.querySelector('a.d-block.h5.mb-2').textContent;
-        const stock = stockData[name];
-        if (stock !== undefined) {
-          item.setAttribute('data-stock', stock);
-        }
-      });
-    }
-  }
+  
 
   function initializeStockDisplay() {
   const stockData = JSON.parse(localStorage.getItem("stock")) || {};
@@ -249,11 +191,7 @@ function updateCartCount() {
     item.setAttribute("data-stock", stock);
 
     // Optional: Disable "Add to Cart" if out of stock
-    const button = item.querySelector(".add-to-cart");
-    if (button) {
-      button.disabled = parseInt(stock) === 0;
-      button.textContent = parseInt(stock) === 0 ? "Out of Stock" : "Add to Cart";
-    }
+    
   });
 }
 
@@ -498,18 +436,7 @@ document.querySelectorAll(".product-item").forEach(item => {
 });
 
 
-      // Disable "Add to Cart" if out of stock
-      if (button) {
-        if (qty === 0) {
-          button.textContent = "Out of Stock";
-          button.style.pointerEvents = "none";
-          button.style.opacity = "0.6";
-        } else {
-          button.textContent = "Add to Cart";
-          button.style.pointerEvents = "auto";
-          button.style.opacity = "1";
-        }
-      }
+     
    
   document.getElementById("restock-message").textContent = "✅ Stock and price updated!";
   setTimeout(() => {
@@ -843,6 +770,27 @@ document.querySelectorAll('.add-to-cart').forEach(button => {
     saveCartToLocalStorage();
   });
 });
+const searchIcon = document.getElementById('search-icon');
+  const searchBoxWrapper = document.getElementById('search-box-wrapper');
+  const searchInput = document.getElementById('search-box');
 
+  searchIcon.addEventListener('click', () => {
+    searchIcon.style.display = 'none';
+    searchBoxWrapper.style.display = 'flex';
+    searchInput.focus();
+  });
+
+  searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      searchBoxWrapper.style.display = 'none';
+      searchIcon.style.display = 'inline';
+    }
+  });
+
+  searchInput.addEventListener('blur', () => {
+    searchBoxWrapper.style.display = 'none';
+    searchIcon.style.display = 'inline';
+  });
+  
 })(jQuery);
 
