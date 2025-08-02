@@ -65,7 +65,7 @@ if (orderBtn) {
       return;
     }
 
-    let message = "🛒 *Reho-tech electronics*\n\n";
+    let message = "🛒 *New Order from Website*\n\n";
     cart.forEach(item => {
       message += `• ${item.name} x${item.quantity} - ₵${(item.price * item.quantity).toFixed(2)}\n`;
     });
