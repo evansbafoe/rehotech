@@ -123,7 +123,7 @@ if (orderBtn) {
     const li = document.createElement('li');
     li.innerHTML = `
       ${item.name} (x${item.quantity}) - ₵${(item.price * item.quantity).toFixed(2)}
-      <button class="remove-item" data-index="${index}" style="margin-left:10px; color: red; cursor: pointer;">✖</button>
+      <button class="remove-item" data-index="${index}" style="margin-left:5px; color: red; cursor: pointer;">x</button>
     `;
     cartItems.appendChild(li);
     total += item.price * item.quantity;
@@ -547,7 +547,7 @@ function updateCartDetails() {
 
     // Create remove button
     const removeBtn = document.createElement('button');
-    removeBtn.textContent = '❌';
+    removeBtn.textContent = 'x';
     removeBtn.style.marginLeft = '5px';
     removeBtn.style.color = 'black ';
     removeBtn.style.background = 'none';
@@ -843,7 +843,27 @@ document.querySelectorAll('.add-to-cart').forEach(button => {
     saveCartToLocalStorage();
   });
 });
+const searchIcon = document.getElementById('search-icon');
+  const searchBoxWrapper = document.getElementById('search-box-wrapper');
+  const searchInput = document.getElementById('search-box');
 
+  searchIcon.addEventListener('click', () => {
+    searchIcon.style.display = 'none';
+    searchBoxWrapper.style.display = 'flex';
+    searchInput.focus();
+  });
 
+  searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      searchBoxWrapper.style.display = 'none';
+      searchIcon.style.display = 'inline';
+    }
+  });
+
+  searchInput.addEventListener('blur', () => {
+    searchBoxWrapper.style.display = 'none';
+    searchIcon.style.display = 'inline';
+  });
+  
 })(jQuery);
 
