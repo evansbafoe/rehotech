@@ -65,7 +65,7 @@ if (orderBtn) {
       return;
     }
 
-    let message = "🛒 *Reho-tech electronics*\n\n";
+    let message = "🛒 *New Order from Website*\n\n";
     cart.forEach(item => {
       message += `• ${item.name} x${item.quantity} - ₵${(item.price * item.quantity).toFixed(2)}\n`;
     });
@@ -403,13 +403,7 @@ document.getElementById("restock-btn").addEventListener("click", () => {
     return;
   }
 
-  // Update localStorage
-  const stockData = JSON.parse(localStorage.getItem("stock")) || {};
-  const priceData = JSON.parse(localStorage.getItem("prices")) || {};
-  stockData[product] = qty;
-  priceData[product] = newPrice;
-  localStorage.setItem("stock", JSON.stringify(stockData));
-  localStorage.setItem("prices", JSON.stringify(priceData));
+  
 
   // Normalize product name for comparison
   const productNormalized = product.trim().toLowerCase();
@@ -523,51 +517,6 @@ function updateCartDetails() {
     cartCount.style.display = cart.length > 0 ? 'inline-block' : 'none';
   }
 }
-document.getElementById("restock-btn").addEventListener("click", () => {
-  const product = document.getElementById("product-select").value;
-  const qty = parseInt(document.getElementById("restock-qty").value);
-  const newPrice = parseFloat(document.getElementById("new-price").value);
-
-  if (!product || isNaN(qty) || isNaN(newPrice)) {
-    alert("❌ Please enter valid stock and price.");
-    return;
-  }
-
-  // Save new stock and price to localStorage
-  const stockData = JSON.parse(localStorage.getItem("stock")) || {};
-  const priceData = JSON.parse(localStorage.getItem("prices")) || {};
-  stockData[product] = qty;
-  priceData[product] = newPrice;
-  localStorage.setItem("stock", JSON.stringify(stockData));
-  localStorage.setItem("prices", JSON.stringify(priceData));
-
-  // Update UI for the matching product
-  document.querySelectorAll(".product-item").forEach(item => {
-    const name = item.querySelector("a.d-block.h5.mb-2").textContent.trim();
-    if (name === product) {
-      // ✅ Update stock
-      item.setAttribute("data-stock", qty);
-      const stockCountEl = item.querySelector(".stock-count");
-      if (stockCountEl) stockCountEl.textContent = qty;
-
-      const button = item.querySelector(".add-to-cart");
-      if (button) {
-        button.disabled = qty === 0;
-        button.textContent = qty === 0 ? "Out of Stock" : "Add to Cart";
-      }
-
-      // ✅ Update current price
-      const priceSpan = item.querySelector(".text-primary.me-1");
-      if (priceSpan) {
-        priceSpan.textContent = `₵${newPrice.toFixed(2)}`;
-        console.log(`✔ Updated price of ${product} to ₵${newPrice.toFixed(2)}`);
-      }
-    }
-  });
-
-  document.getElementById("restock-message").textContent =
-    `✅ Updated ${product}: ₵${newPrice.toFixed(2)} | Stock: ${qty}`;
-});
 
 
 // ✅ Load stored prices and apply to product cards
@@ -585,25 +534,7 @@ document.querySelectorAll(".product-item").forEach(item => {
   }
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-  const priceData = JSON.parse(localStorage.getItem("prices")) || {};
 
-  document.querySelectorAll(".product-item").forEach(item => {
-    const name = item.querySelector("a.d-block.h5.mb-2").textContent.trim();
-
-    if (priceData[name] !== undefined) {
-      const newPrice = parseFloat(priceData[name]).toFixed(2);
-
-      const priceSpans = item.querySelectorAll(".text-primary.me-1");
-      if (priceSpans.length > 0) {
-        priceSpans[0].textContent = `₵${newPrice}`;
-        console.log(`✅ Updated ${name} to ₵${newPrice}`);
-      } else {
-        console.warn(`❌ Price span not found for ${name}`);
-      }
-    }
-  });
-});
 window.onload = () => {
   loadCartFromLocalStorage();
   loadStockFromLocalStorage();
@@ -625,49 +556,8 @@ window.onload = () => {
   });
 };
 
-function showRestockMessage(message) {
-  let feedbackBox = document.getElementById('restock-feedback');
 
-  if (!feedbackBox) {
-    feedbackBox = document.createElement('div');
-    feedbackBox.id = 'restock-feedback';
-    feedbackBox.className = 'alert alert-danger position-fixed bottom-0 end-0 m-3';
-
-    feedbackBox.style.zIndex = '9999';
-    document.body.appendChild(feedbackBox);
-  }
-
-  feedbackBox.textContent = message;
-  feedbackBox.style.display = 'block';
-
-  setTimeout(() => {
-    feedbackBox.style.display = 'none';
-  }, 4000);
-}
-window.onload = () => {
-  populateRestockPanel();
-  loadCartFromLocalStorage();
-  loadStockFromLocalStorage();
-  initializeStockDisplay();
-};
- window.onload = () => {
-  let stockData = JSON.parse(localStorage.getItem("stock")) || {};
-
-  document.querySelectorAll(".product-item").forEach(item => {
-    const nameEl = item.querySelector("a.d-block.h5.mb-2");
-    if (!nameEl) return;
-
-    const name = nameEl.textContent.trim();
-    const defaultStock = item.getAttribute("data-stock") || "0";
-
-    if (!(name in stockData)) {
-      stockData[name] = defaultStock;
-    }
-  });
-
-  localStorage.setItem("stock", JSON.stringify(stockData));
-  initializeStockDisplay();
-};
+ 
 
 function loadCartFromLocalStorage() {
   const savedCart = JSON.parse(localStorage.getItem("cart"));
