@@ -1796,42 +1796,6 @@
     <script src="js/main.js"></script>
 
 <!-- JavaScript to handle cart functionality and search -->
-<script>
-  // paste the code above here
- window.addEventListener('DOMContentLoaded', () => {
-  const prices = JSON.parse(localStorage.getItem("prices")) || {};
-  const stockData = JSON.parse(localStorage.getItem("stock")) || {};
-
-  document.querySelectorAll('.product-item').forEach(item => {
-    const nameEl = item.querySelector('a.d-block.h5.mb-2');
-    const priceEl = item.querySelector('.text-primary.me-1');
-    const stockEl = item.querySelector('.stock-count');
-
-    if (!nameEl) return;
-
-    const productName = nameEl.textContent.trim().toLowerCase();
-
-    // --- Update Price ---
-    for (const key in prices) {
-      if (key.trim().toLowerCase() === productName && priceEl) {
-        priceEl.textContent = `₵${Number(prices[key]).toFixed(2)}`;
-        break;
-      }
-    }
-
-    // --- Update Stock ---
-    for (const key in stockData) {
-      if (key.trim().toLowerCase() === productName && stockEl) {
-        stockEl.textContent = stockData[key];
-        break;
-      }
-    }
-  });
-});
-
-</script>
-    
-<button onclick="showRestockPanelIfAdmin()" style="position: fixed; bottom: 5px; right: 5px;">🔒 Admin</button>
 
 </body>
 
