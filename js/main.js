@@ -31,47 +31,10 @@ document.querySelectorAll('.add-to-cart').forEach(button => {
     event.preventDefault();
 
     const productItem = button.closest('.product-item');
-
-    const productName = productItem
-      .querySelector('a.d-block.h5.mb-2')
-      .textContent.trim();
-
-    const productPrice = parseFloat(
-      productItem.querySelector('.text-primary.me-1')
-      .textContent.replace('₵', '')
-    );
-
+    const productName = productItem.querySelector('a.d-block.h5.mb-2').textContent.trim();
+    const productPrice = parseFloat(productItem.querySelector('.text-primary.me-1').textContent.replace('₵', ''));
     const stockCountEl = productItem.querySelector('.stock-count');
     let currentStock = parseInt(stockCountEl?.textContent || "0");
-
-    if (currentStock <= 0) {
-      alert("Product is out of stock");
-      return;
-    }
-
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-    const existingItem = cart.find(item => item.name === productName);
-
-    if (existingItem) {
-      existingItem.quantity += 1;
-    } else {
-      cart.push({
-        name: productName,
-        price: productPrice,
-        quantity: 1,
-        timestamp: Date.now() // ⏳ time item was added
-      });
-    }
-
-    currentStock -= 1;
-    if (stockCountEl) stockCountEl.textContent = currentStock;
-
-    localStorage.setItem("cart", JSON.stringify(cart));
-
-    updateCartCount();
-  });
-});
     // ✅ Check stock before adding
     if (currentStock <= 0) {
       showRestockMessage(`${productName} is out of stock. We will restock shortly.`);
