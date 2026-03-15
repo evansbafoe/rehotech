@@ -35,6 +35,7 @@ document.querySelectorAll('.add-to-cart').forEach(button => {
     const productPrice = parseFloat(productItem.querySelector('.text-primary.me-1').textContent.replace('₵', ''));
     const stockCountEl = productItem.querySelector('.stock-count');
     let currentStock = parseInt(stockCountEl?.textContent || "0");
+
     // ✅ Check stock before adding
     if (currentStock <= 0) {
       showRestockMessage(`${productName} is out of stock. We will restock shortly.`);
@@ -147,21 +148,10 @@ function updateCartCount() {
 
   function loadCartFromLocalStorage() {
   const savedCart = localStorage.getItem('cart');
-
   if (savedCart) {
-    let cart = JSON.parse(savedCart);
-    const currentTime = Date.now();
-
-    const twoMinutes =  2 * 60 * 1000;
-
-    // Remove items older than 24 hours
-    cart = cart.filter(item => {
-      return (currentTime - item.timestamp) < twoMinutes;
-    });
-
-    // Save the cleaned cart back to localStorage
-    localStorage.setItem('cart', JSON.stringify(cart));
-
+    cart = JSON.parse(savedCart);
+    const currentTime = new Date().getTime();
+    cart = cart.filter(item => (currentTime - item.timestamp) < 2 * 60 * 60 * 1000);
     updateCartCount();
     updateCartDetails();
   }
@@ -693,4 +683,3 @@ const searchIcon = document.getElementById('search-icon');
   });
   
 })(jQuery);
-
