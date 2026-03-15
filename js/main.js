@@ -151,7 +151,7 @@ function updateCartCount() {
   if (savedCart) {
     cart = JSON.parse(savedCart);
     const currentTime = new Date().getTime();
-    cart = cart.filter(item => (currentTime - item.timestamp) < -2 * 60 * 1000);
+    cart = cart.filter(item => (currentTime - item.timestamp) < 2 * 60 * 1000);
     updateCartCount();
     updateCartDetails();
   }
