@@ -189,11 +189,11 @@ function updateCartCount() {
     let cart = JSON.parse(savedCart);
     const currentTime = Date.now();
 
-    const twentyFourHours = 24 * 60 * 60 * 1000;
+    const twoMinutes =  2 * 60 * 1000;
 
     // Remove items older than 24 hours
     cart = cart.filter(item => {
-      return (currentTime - item.timestamp) < twentyFourHours;
+      return (currentTime - item.timestamp) < twoMinutes;
     });
 
     // Save the cleaned cart back to localStorage
