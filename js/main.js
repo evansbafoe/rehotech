@@ -56,28 +56,7 @@ document.querySelectorAll('.add-to-cart').forEach(button => {
     updateCartDetails();
   });
 });
-function loadCartFromLocalStorage() {
 
-  const savedCart = localStorage.getItem('cart');
-
-  if (!savedCart) return;
-
-  let cart = JSON.parse(savedCart);
-
-  const currentTime = Date.now();
-  const expiryTime = 2 * 60 * 1000; // 2 minutes
-
-  // Remove items older than 2 minutes
-  cart = cart.filter(item => {
-    return (currentTime - item.timestamp) < expiryTime;
-  });
-
-  // Save updated cart
-  localStorage.setItem('cart', JSON.stringify(cart));
-
-  updateCartCount();
-  updateCartDetails();
-}
 const orderBtn = document.getElementById("place-order-btn");
 if (orderBtn) {
   orderBtn.addEventListener("click", () => {
